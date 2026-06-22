@@ -3,7 +3,7 @@ Enterprise Customer Intelligence Platform
 SQL Server  |  Python  |  Power BI  |  Data Warehousing  |  Star Schema
 
 
-Overview
+Overview:
 
 Working with 541,909 real retail transactions from a UK based online
 retailer spanning 2010 to 2011, I designed and built a complete
@@ -12,7 +12,7 @@ designed using data warehousing and analytics engineering practices
 commonly used in enterprise reporting environments.
 
 
-Business Impact Summary
+Business Impact Summary:
 
 Processed 541,909 retail transactions across 38 countries
 Built Customer360 profiles for 4,371 unique customers
@@ -38,24 +38,39 @@ Stored Procedures          4
 Performance Indexes        10
 
 
-Repository Structure
+Repository Structure:
 
 customer-intelligence-platform/
+
 ├── sql/
+
 │   ├── create_tables.sql
+
 │   ├── load_data.sql
+
 │   ├── customer_360.sql
+
 │   ├── views.sql
+
 │   ├── procedures.sql
+
 │   └── indexes.sql
+
 ├── etl/
+
 │   └── etl.py
+
 ├── powerbi/
+
 │   └── dashboard.pbix
+
 ├── docs/
 │   ├── architecture.png
+
 │   └── erd.png
+
 └── screenshots/
+
     ├── executive-dashboard.png
     ├── customer-segmentation.png
     ├── revenue-trends.png
@@ -63,7 +78,7 @@ customer-intelligence-platform/
     └── geographic-analysis.png
 
 
-Business Problem
+Business Problem:
 
 A retail company needed answers to four critical questions. Who are
 the most valuable customers and how do we protect them? Which customers
@@ -74,31 +89,39 @@ gut feel to data driven retention decisions?
 This platform was built to answer all four.
 
 
-Project Architecture
+Project Architecture:
 
 Raw CSV Data
+
         |
         v
 Python ETL Pipeline  extract, validate, clean, transform
+
         |
         v
 SQL Server Star Schema Data Warehouse
+
 FactSales connected to DimCustomer, DimProduct, DimDate, DimCountry
+
         |
         v
 Customer 360 Table  unified customer profile
+
         |
         v
 Analytical Views and Stored Procedures
+
         |
         v
+        
 Power BI Executive Dashboard  5 pages
 
 See docs/architecture.png for the full architecture diagram.
+
 See docs/erd.png for the entity relationship diagram.
 
 
-Data Warehouse Design
+Data Warehouse Design:
 
 I designed a Star Schema with one central fact table and four dimension
 tables. This structure was chosen to support efficient analytical
@@ -121,7 +144,7 @@ DimCountry classifies each market by region and domestic versus
 international status.
 
 
-Customer 360
+Customer 360:
 
 The Customer360 layer provides a consolidated analytical view of
 customer behavior, revenue contribution, retention risk, and lifetime
@@ -132,7 +155,7 @@ frequency, customer lifespan, estimated CLV, RFM score, segment
 classification, and churn status with revenue at risk.
 
 
-Customer 360 Schema
+Customer 360 Schema:
 
 Column                    Description
 CustomerID                Unique customer identifier
@@ -156,7 +179,7 @@ ChurnStatus               Active, Warm, Cold, or Churned
 RevenueAtRisk             Estimated revenue loss if customer churns
 
 
-SQL Engineering
+SQL Engineering:
 
 The SQL layer demonstrates advanced techniques applied to real
 business problems. CTEs were used throughout to keep complex multi
@@ -169,7 +192,7 @@ BI consumption. Four stored procedures automate RFM refresh, churn
 detection, VIP reporting, and monthly executive reporting.
 
 
-Query Performance Optimization
+Query Performance Optimization:
 
 Implemented 10 indexes across fact and dimension tables.
 
@@ -184,7 +207,7 @@ After optimization     0.6 seconds
 Performance gain       85.7 percent
 
 
-Customer Segmentation
+Customer Segmentation:
 
 VIP customers score at the top quartile across all three RFM
 dimensions. Loyal customers show strong recency and frequency.
@@ -194,7 +217,7 @@ At Risk customers have historically high frequency but declining
 recency. Lost customers show low engagement across all dimensions.
 
 
-Churn Framework
+Churn Framework:
 
 Active customers purchased within 30 days. Warm customers last
 purchased between 31 and 60 days ago. Cold customers are between
@@ -207,7 +230,7 @@ at risk calculated per customer to prioritize outreach by financial
 impact.
 
 
-Customer Lifetime Value
+Customer Lifetime Value:
 
 CLV is estimated per customer using average order value, purchase
 frequency derived from transaction intervals, and an assumed three
@@ -215,7 +238,7 @@ year customer lifespan. This drives the CLV distribution dashboard
 and supports long term retention investment decisions.
 
 
-Python ETL Pipeline
+Python ETL Pipeline:
 
 The extraction stage reads 541,909 records from source. The
 validation stage removes duplicates, filters missing customer
@@ -226,7 +249,7 @@ regional and market type classifications. The pipeline generates a
 full execution report on every run.
 
 
-Dashboard Preview
+Dashboard Preview:
 
 Executive Dashboard
 (executive-dashboard.png)
@@ -244,7 +267,7 @@ Geographic Analysis
 (geographic-analysis.png)
 
 
-Technical Challenges
+Technical Challenges:
 
 Handling 135,120 invalid records including missing customer IDs,
 cancelled invoices flagged with negative quantities, and malformed
@@ -267,7 +290,7 @@ composite indexes on the most frequently filtered column
 combinations.
 
 
-Business Recommendations
+Business Recommendations:
 
 The 33 percent churn rate represents a significant and recoverable
 revenue opportunity. A structured win-back campaign targeting churned
@@ -283,7 +306,7 @@ Diversifying acquisition investment across Q2 and Q3 would reduce
 revenue volatility and create a more stable growth curve.
 
 
-Production Considerations
+Production Considerations:
 
 If deployed in a production environment this platform would include
 incremental ETL loading to process only new and changed records,
@@ -294,7 +317,7 @@ S3 or Azure Data Lake, and row level security in Power BI to
 restrict data access by role or region.
 
 
-SQL Techniques Demonstrated
+SQL Techniques Demonstrated:
 
 Common Table Expressions, Window Functions, NTILE Quartile Scoring,
 DATEDIFF and DATEPART Date Calculations, TRY CAST Type Conversion,
@@ -303,7 +326,7 @@ Incremental Loading, Analytical Views, Stored Procedures,
 Performance Indexing
 
 
-Tools and Technologies
+Tools and Technologies:
 
 SQL Server, SQL Server Management Studio, Python, Pandas, PyODBC,
 Power BI, DAX, Star Schema, Data Warehousing, ETL Pipeline Design,
